@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Company index{% endblock %}
+
+{% block body %}
+    <h1>Company index</h1>
+
+    <div class="row">
+        <div class="col-1">
+            Total {{ companies.getTotalItemCount }}
+        </div>
+        <div class="col-5"><a href="{{ path('company_new') }}" class="btn btn-primary">Create new</a></div>
+        <div class="col-6">
+            <div class="form-group">
+                <input id="search_company" type="text" class="form-control" placeholder="Search companies"/>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Web site</th>
+                <th>Date created</th>
+                <th>Opened</th>
+                <th>Closed</th>
+                <th>Active</th>
+                <th>Director</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            {% set director = company.director %}
+            <tr>
+                <td>{{ company.id }}</td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.email }}</td>
+                <td><a href="{{ company.webSite }}" target="_blank">{{ company.webSite }}</a></td>
+                <td>{{ company.dateCreated|date("m/d/Y") }}</td>
+                <td>{{ company.timeWorkFrom  }}</td>
+                <td>{{ company.timeWorkTo  }}</td>
+                <td>{{ company.isActive ? 'Yes' : 'No'  }}</td>
+                <td>{{ director.lastName ~ ' ' ~ director.firstName}}</td>
+                <td>
+                    <a href="{{ path('company_show', {'id': company.id}) }}">show</a>
+                    <a href="{{ path('company_edit', {'id': company.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="navigation">
+                {{ knp_pagination_render(companies) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

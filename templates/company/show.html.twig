@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Company{% endblock %}
+
+{% block body %}
+    {% set director = company.director %}
+    <div class="row">
+        <div class="col-12">
+            <h1>Company</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="row">
+                <div class="col-12">
+                {% if company.logo %}
+                    <img src="{{ asset('uploads/company_logo/' ~ company.logo) }}" alt="logo" class="img-thumbnail">
+                {% else %}
+                    <img src="{{ asset('defaults/photos/noLogo.png') }}" alt="logo" class="img-thumbnail">
+                {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a href="{{ path('company_index') }}" class="btn btn-primary btn-block">back to list</a>
+                    <a href="{{ path('company_edit', {'id': company.id}) }}" class="btn btn-success btn-block">edit</a>
+                    {{ include('company/_delete_form.html.twig') }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th colspan="2">Contacts</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for contact in company.companyContacts %}
+                                <tr>
+                                    <td>{{ contact.contactType.name }}</td>
+                                    <td>{{ contact.contact }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ company.id }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ company.name }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ company.email }}</td>
+                </tr>
+                <tr>
+                    <th>Opened</th>
+                    <td>{{ company.timeWorkFrom }}</td>
+                </tr>
+                <tr>
+                    <th>Closed</th>
+                    <td>{{ company.timeWorkTo }}</td>
+                </tr>
+                <tr>
+                    <th>Web site</th>
+                    <td><a href="{{ company.webSite }}" target="_blank">{{ company.webSite }}</a></td>
+                </tr>
+                <tr>
+                    <th>About company</th>
+                    <td>{{ company.aboutCompany }}</td>
+                </tr>
+                <tr>
+                    <th>Director</th>
+                    <td>{{ director.lastName ~ ' ' ~ director.firstName}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ company.address }}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{ company.state }}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{ company.city }}</td>
+                </tr>
+                <tr>
+                    <th>Street</th>
+                    <td>{{ company.street }}</td>
+                </tr>
+                <tr>
+                    <th>House</th>
+                    <td>{{ company.house }}</td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td>{{ company.country }}</td>
+                </tr>
+                <tr>
+                    <th>Zip_code</th>
+                    <td>{{ company.zipCode }}</td>
+                </tr>
+                <tr>
+                    <th>Office</th>
+                    <td>{{ company.office }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

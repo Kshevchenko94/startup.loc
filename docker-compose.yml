@@ -1,0 +1,39 @@
+version: '2.2'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Nginx.Dockerfile
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/var/www/startup.loc
+    links:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/Fpm.Dockerfile
+    volumes:
+      - ./:/var/www/startup.loc
+    links:
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+    - 3307:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: startup_db
+    links:
+      - adminer
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080

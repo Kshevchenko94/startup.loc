@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Goal{% endblock %}
+
+{% block body %}
+    <h1>Goal</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ goal.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ goal.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ goal.description }}</td>
+            </tr>
+            <tr>
+                <th>Date_created</th>
+                <td>{{ goal.dateCreated }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ goal.price }}</td>
+            </tr>
+            <tr>
+                <th>Deadline</th>
+                <td>{{ goal.deadline }}</td>
+            </tr>
+            <tr>
+                <th>Is_private</th>
+                <td>{{ goal.isPrivate ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('goal_index') }}">back to list</a>
+
+    <a href="{{ path('goal_edit', {'id': goal.id}) }}">edit</a>
+
+    {{ include('goal/_delete_form.html.twig') }}
+{% endblock %}

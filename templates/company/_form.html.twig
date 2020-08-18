@@ -1,0 +1,84 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="row">
+    <div class="col-6">
+        <div class="form-group">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.web_site) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.time_work_from) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.time_work_to) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.director) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.about_company) }}
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            {{ form_row(form.address) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.city) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.country) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.street) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.house) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.office) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.zip_code) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.logo) }}
+            {{ form_row(form.is_delete_logo) }}
+            {% if company.logo %}
+            <div id="a_logo">
+                <a href="{{ asset('uploads/company_logo/' ~ company.logo) }}">Logo company.name</a>
+                <button class="btn" type="button" id="delete_logo">X</button>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+    <div class="col-6">
+        <h5>Services</h5>
+
+    </div>
+    <div class="col-6">
+        <h5>More contact</h5>
+        <ul class="companyContacts" style="list-style-type: none; padding: 0;" data-prototype="{{ form_widget(form.companyContacts.vars.prototype)|e('html_attr') }}">
+            {% for contact in form.companyContacts %}
+                <li>
+                    {{ form_row(contact.contact) }}
+                    {{ form_row(contact.contact_type) }}
+                </li>
+            {% endfor %}
+            <button class="btn btn-primary add_contact">
+                Add Contact
+            </button>
+        </ul>
+    </div>
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+</div>
+{{ form_end(form) }}
+{% block javascript %}
+{{ encore_entry_script_tags('company') }}
+{% endblock %}
